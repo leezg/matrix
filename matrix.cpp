@@ -8,7 +8,7 @@
 void initNumA() {
     for (int i_ = 0; i_ < 501; i_++) {
         int i = i_ + 1;
-        numA[i_] = (1.64 - 0.024 * i) * sin(0.2 * i) - 0.64 * exp(0.1 / i);
+        numA.push_back((1.64 - 0.024 * i) * sin(0.2 * i) - 0.64 * exp(0.1 / i));
     }
 }
 
@@ -44,6 +44,18 @@ void initMatrix() { //矩阵初始化
         setMatrixByCoordinate(i, i + 1, numB);
         setMatrixByCoordinate(i, i + 2, numC);
     }
+}
+
+//TODO: 降低复杂度
+double* matrixAmultArr(double arr[501]) {
+    vector<double> ans;
+    for (int i = 0; i < 501; i++) {
+        ans.push_back(0);
+        for (int j = 0; j < 501; j++) {
+            ans.push_back(getMatrixByCoordinate(i + 1, j + 1) * arr[j]);
+        }
+    }
+    return arr;
 }
 
 //void printMatrix() {
