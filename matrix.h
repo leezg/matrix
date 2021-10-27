@@ -16,6 +16,7 @@ public:
     double getMatrixByCoordinate(int, int);
     vector<double> matrixMultArr(vector<double>);
     void printMatrix();
+    void LU();
 };
 
 
