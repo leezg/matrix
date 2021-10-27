@@ -5,7 +5,11 @@
 #ifndef MATRIX_MATRIXOPERATION_H
 #define MATRIX_MATRIXOPERATION_H
 
-//double** matrixMult();
+#include "usedPackage.h"
 
+double vectorMult (vector<double>, vector<double>);
+double getVectorNorm (vector<double>);
+vector<double> vectorNumberMult(vector<double>, double, char);
+bool checkE(double, double);
 
 #endif //MATRIX_MATRIXOPERATION_H

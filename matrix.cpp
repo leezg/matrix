@@ -5,14 +5,7 @@
 #include <math.h>
 #define E exp(-12)
 
-void initNumA() {
-    for (int i_ = 0; i_ < 501; i_++) {
-        int i = i_ + 1;
-        numA.push_back((1.64 - 0.024 * i) * sin(0.2 * i) - 0.64 * exp(0.1 / i));
-    }
-}
-
-void setMatrixByCoordinate(int i_, int j_, double value) { //根据原坐标设值
+void Matrix::setMatrixByCoordinate(int i_, int j_, double value) { //根据原坐标设值
     if (i_ < 1 || j_ < 1 || i_ > 501 || j_ > 501) {
         return;
     }
@@ -34,7 +27,7 @@ void setMatrixByCoordinate(int i_, int j_, double value) { //根据原坐标设�
     }
 }
 
-double getMatrixByCoordinate(int i_, int j_) { //根据原坐标取值
+double Matrix::getMatrixByCoordinate(int i_, int j_) { //根据原坐标取值
     if (i_ < 1 || j_ < 1 || i_ > 501 || j_ > 501) {
         return 0;
     }
@@ -46,7 +39,7 @@ double getMatrixByCoordinate(int i_, int j_) { //根据原坐标取值
     return matrixA[i][j];
 }
 
-void initMatrix() { //矩阵初始化
+Matrix::Matrix() { //矩阵初始化
     for (int i = 1; i <= 501; i++) {
         setMatrixByCoordinate(i, i - 2, numC);
         setMatrixByCoordinate(i, i -1, numB);
@@ -57,7 +50,7 @@ void initMatrix() { //矩阵初始化
 }
 
 //TODO: 降低复杂度
-vector<double> matrixAmultArr(vector<double> arr) {
+vector<double> Matrix::matrixMultArr(vector<double> arr) {
     vector<double> ans;
     for (int i = 0; i < 501; i++) {
         ans.push_back(0);
@@ -68,7 +61,7 @@ vector<double> matrixAmultArr(vector<double> arr) {
     return arr;
 }
 
-void printMatrix() {
+void Matrix::printMatrix() {
     for (int i = 0; i < 501; i++) {
         for (int j = 0; j < 5; j++) {
             printf("%20.12lf", matrixA[i][j]);

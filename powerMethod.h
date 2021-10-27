@@ -6,7 +6,8 @@
 #define MATRIX_POWERMETHOD_H
 
 #include "matrix.h"
+#include "matrixOperation.h"
 
-
+Lamda power();
 
 #endif //MATRIX_POWERMETHOD_H
