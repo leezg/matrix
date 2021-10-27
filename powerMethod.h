@@ -9,6 +9,4 @@
 
 
 
-
-
 #endif //MATRIX_POWERMETHOD_H

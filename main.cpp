@@ -16,6 +16,6 @@ void testPrint() {
 int main() {
     initNumA();
     initMatrix();
-    testPrint();
+//    testPrint();
     return 0;
 }

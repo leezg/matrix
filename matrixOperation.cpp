@@ -4,6 +4,4 @@
 
 #include "matrixOperation.h"
 
-double* vectorMult(int vector1[], int vector2[]) {
 
-}

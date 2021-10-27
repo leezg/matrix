@@ -6,6 +6,7 @@
 #define MATRIX_MATRIX_H
 
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -19,7 +20,7 @@ void initMatrix();
 void setMatrixByCoordinate(int, int, double);
 double getMatrixByCoordinate(int, int);
 vector<double> matrixAmultArr(vector<double>);
-//void printMatrix();
+void printMatrix();
 
 
 #endif //MATRIX_MATRIX_H

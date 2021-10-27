@@ -6,7 +6,7 @@
 
 double iter() {
     int k = 1;
-    double* u;
+    vector<double> u;
 
     u = matrixAmultArr(u);
 

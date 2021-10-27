@@ -21,7 +21,17 @@ void setMatrixByCoordinate(int i_, int j_, double value) { //根据原坐标设�
     if (j < 0 || j >= 5) {
         return;
     }
-    matrixA[i][j] = value;
+    if (matrixA.size() <= i) {
+        matrixA.push_back(vector<double>());
+    }
+    if (matrixA[i].size() > j) {
+        matrixA[i][j] = value;
+    } else {
+        while (matrixA[i].size() < j) {
+            matrixA[i].push_back(0);
+        }
+        matrixA[i].push_back(value);
+    }
 }
 
 double getMatrixByCoordinate(int i_, int j_) { //根据原坐标取值
@@ -47,7 +57,7 @@ void initMatrix() { //矩阵初始化
 }
 
 //TODO: 降低复杂度
-double* matrixAmultArr(double arr[501]) {
+vector<double> matrixAmultArr(vector<double> arr) {
     vector<double> ans;
     for (int i = 0; i < 501; i++) {
         ans.push_back(0);
@@ -58,11 +68,11 @@ double* matrixAmultArr(double arr[501]) {
     return arr;
 }
 
-//void printMatrix() {
-//    for (int i = 0; i < 501; i++) {
-//        for (int j = 0; j < 5; j++) {
-//            printf("%20.12lf", matrixA[i][j]);
-//        }
-//        cout << endl;
-//    }
-//}
+void printMatrix() {
+    for (int i = 0; i < 501; i++) {
+        for (int j = 0; j < 5; j++) {
+            printf("%20.12lf", matrixA[i][j]);
+        }
+        cout << endl;
+    }
+}
