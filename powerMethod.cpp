@@ -10,7 +10,7 @@ double iter(int &k, Matrix* matrix, vector<double> u) {
     double betaK_1 = 0;
     double betaK;
 
-    while (k < 10000) {
+    while (k < maxIterTimes) {
         y = vectorNumberMult(u, uNorm, '/');
         u = matrix->matrixMultArr(y);
         betaK = vectorMult(y, u);
@@ -30,13 +30,13 @@ Lamda power() {
     double beta;
     Lamda lamda;
     beta = iter(k, matrixA, u);
-    if (k < 10000) {
+    if (k < maxIterTimes) {
         double lamdaA, lamdaB;
         lamdaA = beta;
         //TODO: 矩阵变换
         k = 1;
         beta = iter(k, matrixA, u);
-        if (k < 10000) {
+        if (k < maxIterTimes) {
             lamdaB = beta + lamdaA;
             lamda.lamda1 = min(lamdaA, lamdaB);
             lamda.lamda501 = max(lamdaA, lamdaB);
@@ -47,7 +47,7 @@ Lamda power() {
         //TODO: 矩阵变换
         k = 1;
         beta = iter(k, matrixA, u);
-        if (k < 10000) {
+        if (k < maxIterTimes) {
             lamda.lamda1 = sqrt(beta);
             lamda.lamda501 = lamda.lamda1;
         } else {

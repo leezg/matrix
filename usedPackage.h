@@ -9,6 +9,8 @@
 #include <vector>
 #include <iostream>
 #define E exp(-12)
+#define maxLength 501
+#define maxIterTimes 10000
 
 using namespace std;
 

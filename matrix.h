@@ -10,13 +10,19 @@
 class Matrix {
 private:
     vector<vector<double>> matrixA;
+    vector<vector<double>> matrixL;
+    vector<vector<double>> matrixU;
     void setMatrixByCoordinate(int, int, double);
+    double sumLrkUki(int, int);
 public:
     Matrix();
     double getMatrixByCoordinate(int, int);
     vector<double> matrixMultArr(vector<double>);
     void printMatrix();
-    void LU();
+    void LU_Factorization();
+    vector<vector<double>> getMatrixA();
+    vector<vector<double>> getMatrixL();
+    vector<vector<double>> getMatrixU();
 };
 
 
