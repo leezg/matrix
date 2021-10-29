@@ -8,6 +8,6 @@
 #include "matrix.h"
 #include "matrixOperation.h"
 
-Lamda power();
+Lambda power();
 
 #endif //MATRIX_POWERMETHOD_H

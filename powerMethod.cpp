@@ -23,23 +23,24 @@ double iter(int &k, Matrix* matrix, vector<double> u) {
     return -1;
 }
 
-Lamda power() {
+Lambda power() {
     Matrix* matrixA = new Matrix();
     int k = 1;
+    //TODO: set u
     vector<double> u;
     double beta;
-    Lamda lamda;
+    Lambda lambda;
     beta = iter(k, matrixA, u);
     if (k < maxIterTimes) {
-        double lamdaA, lamdaB;
-        lamdaA = beta;
-        //TODO: 矩阵变换
+        double lambdaA, lambdaB;
+        lambdaA = beta;
+        matrixA->plusIdentityMatrix(-lambdaA);
         k = 1;
         beta = iter(k, matrixA, u);
         if (k < maxIterTimes) {
-            lamdaB = beta + lamdaA;
-            lamda.lamda1 = min(lamdaA, lamdaB);
-            lamda.lamda501 = max(lamdaA, lamdaB);
+            lambdaB = beta + lambdaA;
+            lambda.lambda1 = min(lambdaA, lambdaB);
+            lambda.lambda501 = max(lambdaA, lambdaB);
         } else {
             cout << "调整u" << endl;
         }
@@ -48,12 +49,12 @@ Lamda power() {
         k = 1;
         beta = iter(k, matrixA, u);
         if (k < maxIterTimes) {
-            lamda.lamda1 = sqrt(beta);
-            lamda.lamda501 = lamda.lamda1;
+            lambda.lambda1 = sqrt(beta);
+            lambda.lambda501 = lambda.lambda1;
         } else {
             cout << "调整u" << endl;
         }
     }
-    return lamda;
+    return lambda;
 }
 

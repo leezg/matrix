@@ -20,6 +20,8 @@ public:
     vector<double> matrixMultArr(vector<double>);
     void printMatrix();
     void LU_Factorization();
+    vector<double> LU_Solve(vector<double>);
+    void plusIdentityMatrix(double);
     vector<vector<double>> getMatrixA();
     vector<vector<double>> getMatrixL();
     vector<vector<double>> getMatrixU();

@@ -1,5 +1,7 @@
 #include "usedPackage.h"
 #include "matrix.h"
+#include "powerMethod.h"
+#include "inversePowerMethod.h"
 
 void initNumA() {
     for (int i_ = 0; i_ < 501; i_++) {
@@ -10,6 +12,7 @@ void initNumA() {
 
 int main() {
     initNumA();
-//    testPrint();
+    Lambda lambda = power();
+    vector<double> lambdaT = inversePower(lambda);
     return 0;
 }

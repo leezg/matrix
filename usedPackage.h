@@ -18,9 +18,9 @@ static vector<double> numA;
 static double numB = 0.16;
 static double numC = -0.064;
 
-struct Lamda {
-    double lamda1;
-    double lamda501;
+struct Lambda {
+    double lambda1;
+    double lambda501;
 };
 
 #endif //MATRIX_USEDPACKAGE_H
