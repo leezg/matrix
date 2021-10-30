@@ -23,11 +23,30 @@ double iter(int &k, Matrix* matrix, vector<double> u) {
     return -1;
 }
 
+double iter2(int &k, Matrix* matrix, vector<double> u) {
+    vector<double> y;
+    double uNorm = getVectorNorm(u);
+    double betaK_1 = 0;
+    double betaK;
+
+    while (k < maxIterTimes) {
+        y = vectorNumberMult(u, uNorm, '/');
+        u = matrix->matrixMultArr(y);
+        u = matrix->matrixMultArr(u);
+        betaK = vectorMult(y, u);
+        if (checkE(betaK, betaK_1)) {
+            return betaK;
+        }
+        k++;
+    }
+
+    return -1;
+}
+
 Lambda power() {
     Matrix* matrixA = new Matrix();
     int k = 1;
-    //TODO: set u
-    vector<double> u;
+    vector<double> u = initU();
     double beta;
     Lambda lambda;
     beta = iter(k, matrixA, u);
@@ -45,9 +64,8 @@ Lambda power() {
             cout << "调整u" << endl;
         }
     } else {
-        //TODO: 矩阵变换
         k = 1;
-        beta = iter(k, matrixA, u);
+        beta = iter2(k, matrixA, u);
         if (k < maxIterTimes) {
             lambda.lambda1 = sqrt(beta);
             lambda.lambda501 = lambda.lambda1;

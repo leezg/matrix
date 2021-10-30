@@ -10,22 +10,10 @@ Matrix::Matrix() { //矩阵初始化
     for (int i = 0; i < maxLength; i++) {
         setMatrixByCoordinate(i, i - 2, numC);
         setMatrixByCoordinate(i, i -1, numB);
-        setMatrixByCoordinate(i, i, numA[i - 1]);
+        setMatrixByCoordinate(i, i, numA[i]);
         setMatrixByCoordinate(i, i + 1, numB);
         setMatrixByCoordinate(i, i + 2, numC);
     }
-}
-
-vector<vector<double>> Matrix::getMatrixA() {
-    return matrixA;
-}
-
-vector<vector<double>> Matrix::getMatrixL() {
-    return matrixL;
-}
-
-vector<vector<double>> Matrix::getMatrixU() {
-    return matrixU;
 }
 
 double Matrix::getMatrixByCoordinate(int i_, int j_) { //根据原坐标取值

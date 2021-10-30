@@ -42,3 +42,11 @@ bool checkE(double betaK, double betaK_1) {
     }
     return false;
 }
+
+vector<double> initU() {
+    vector<double> u;
+    for (int i = 0; i < maxLength; i++) {
+        u.push_back(1);
+    }
+    return u;
+}

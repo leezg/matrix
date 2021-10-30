@@ -39,8 +39,7 @@ vector<double> inversePower(Lambda lambda) {
         Matrix *matrixA = new Matrix();
         matrixA->plusIdentityMatrix(-mu[t]);
         matrixA->LU_Factorization();
-        //TODO: set u
-        vector<double> u;
+        vector<double> u = initU();
         double beta;
         int k = 1;
         beta = iter(k, matrixA, u);
