@@ -15,6 +15,7 @@ private:
     void setMatrixByCoordinate(int, int, double);
     double sumLktUtj(int, int);
     double sumLjtUtk(int, int);
+    void LmultU();
 public:
     Matrix();
     Matrix(int i);

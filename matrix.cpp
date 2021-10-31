@@ -39,8 +39,23 @@ Matrix::Matrix(int i) {
     matrixA[3].push_back(5);
     matrixA[3].push_back(2);
     LU_Factorization();
+    LmultU();
     printMatrix();
     printMatrix();
+}
+
+void Matrix::LmultU() {
+    vector<vector<double>> t;
+    for (int i = 0; i < maxLength; i++) {
+        t.push_back(vector<double>());
+        for (int j = 0; j < maxLength; j++) {
+            double sum = 0;
+            for (int k = 0; k < maxLength; k++) {
+                sum += matrixL[i][k] * matrixU[k][j];
+            }
+            t[i].push_back(sum);
+        }
+    }
 }
 
 double Matrix::getMatrixByCoordinate(int i_, int j_) { //根据原坐标取值
@@ -82,22 +97,7 @@ void Matrix::LU_Factorization() {
         }
     }
 
-//    for (int i = 0; i < maxLength; i++) {
-//        matrixU[0][i] = getMatrixByCoordinate(0, i);
-//    }
-//
-//    for (int i = 1; i < maxLength; i++) {
-//        matrixL[i][0] = getMatrixByCoordinate(i, 0) / matrixU[0][0];
-//    }
-//
-//    for (int r = 1; r < maxLength; r++) {
-//        for (int i = r; i < maxLength; i++) {
-//            matrixU[r][i] = getMatrixByCoordinate(r, i) - sumLrkUki(r, i);
-//            if (i > r) {
-//                matrixL[i][r] = (getMatrixByCoordinate(i, r) - sumLrkUki(r, i)) / matrixU[r][r];
-//            }
-//        }
-//    }
+
 }
 
 vector<double> Matrix::LU_Solve(vector<double> b) {
@@ -182,16 +182,16 @@ void Matrix::printMatrix() {
 
 double Matrix::sumLktUtj(int k, int j) {
     double sum = 0;
-    for (int t = 0; t < k - 1; t++) {
-        sum += matrixL[k][t] + matrixU[t][j];
+    for (int t = 0; t < k; t++) {
+        sum += matrixL[k][t] * matrixU[t][j];
     }
     return sum;
 }
 
 double Matrix::sumLjtUtk(int k, int j) {
     double sum = 0;
-    for (int t = 0; t < k - 1; t++) {
-        sum += matrixL[j][t] + matrixU[t][k];
+    for (int t = 0; t < k; t++) {
+        sum += matrixL[j][t] * matrixU[t][k];
     }
     return sum;
 }
