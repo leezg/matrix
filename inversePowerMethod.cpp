@@ -9,19 +9,23 @@ vector<double> lambdaT;
 
 double iter(int &k, Matrix* matrix, vector<double> &u) {
     vector<double> y;
-    double uNorm = getVectorNorm(u);
+    double uNorm;
     double betaK_1 = 0;
     double betaK;
 
     while (k < maxIterTimes) {
+        uNorm = getVectorNorm(u);
         y = vectorNumberMult(u, uNorm, '/');
         u = matrix->LU_Solve(y);
+        vector<double> t = matrix->matrixMultArr(u);
         betaK = vectorMult(y, u);
         if (checkE(betaK, betaK_1)) {
             return betaK;
         }
+        betaK_1 = betaK;
         k++;
     }
+
 
     return -1;
 }
@@ -29,7 +33,7 @@ double iter(int &k, Matrix* matrix, vector<double> &u) {
 void initMu(Lambda lambda) {
     mu.push_back(0);
     for (int i = 1; i < muNum; i++) {
-        mu.push_back(lambda.lambda1 + i * (lambda.lambda501 - lambda.lambda1)/40);
+        mu.push_back(lambda.lambda1 + i * (lambda.lambda501 - lambda.lambda1) / 40);
     }
 }
 
@@ -39,7 +43,7 @@ vector<double> inversePower(Lambda lambda) {
         Matrix *matrixA = new Matrix();
         matrixA->plusIdentityMatrix(-mu[t]);
         matrixA->LU_Factorization();
-        vector<double> u = initU();
+        vector<double> u = initU(0);
         double beta;
         int k = 1;
         beta = iter(k, matrixA, u);

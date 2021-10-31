@@ -13,9 +13,11 @@ private:
     vector<vector<double>> matrixL;
     vector<vector<double>> matrixU;
     void setMatrixByCoordinate(int, int, double);
-    double sumLrkUki(int, int);
+    double sumLktUtj(int, int);
+    double sumLjtUtk(int, int);
 public:
     Matrix();
+    Matrix(int i);
     double getMatrixByCoordinate(int, int);
     vector<double> matrixMultArr(vector<double>);
     void printMatrix();

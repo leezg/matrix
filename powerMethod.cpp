@@ -6,17 +6,20 @@
 
 double iter(int &k, Matrix* matrix, vector<double> u) {
     vector<double> y;
-    double uNorm = getVectorNorm(u);
+    double uNorm;
     double betaK_1 = 0;
     double betaK;
 
     while (k < maxIterTimes) {
+        uNorm  = getVectorNorm(u);
         y = vectorNumberMult(u, uNorm, '/');
         u = matrix->matrixMultArr(y);
         betaK = vectorMult(y, u);
         if (checkE(betaK, betaK_1)) {
+            double tmp = abs(betaK - betaK_1) / abs(betaK);
             return betaK;
         }
+        betaK_1 = betaK;
         k++;
     }
 
@@ -25,11 +28,12 @@ double iter(int &k, Matrix* matrix, vector<double> u) {
 
 double iter2(int &k, Matrix* matrix, vector<double> u) {
     vector<double> y;
-    double uNorm = getVectorNorm(u);
+    double uNorm;
     double betaK_1 = 0;
     double betaK;
 
     while (k < maxIterTimes) {
+        uNorm = getVectorNorm(u);
         y = vectorNumberMult(u, uNorm, '/');
         u = matrix->matrixMultArr(y);
         u = matrix->matrixMultArr(u);
@@ -37,6 +41,7 @@ double iter2(int &k, Matrix* matrix, vector<double> u) {
         if (checkE(betaK, betaK_1)) {
             return betaK;
         }
+        betaK_1 = betaK;
         k++;
     }
 
@@ -46,7 +51,7 @@ double iter2(int &k, Matrix* matrix, vector<double> u) {
 Lambda power() {
     Matrix* matrixA = new Matrix();
     int k = 1;
-    vector<double> u = initU();
+    vector<double> u = initU(0);
     double beta;
     Lambda lambda;
     beta = iter(k, matrixA, u);
@@ -55,6 +60,7 @@ Lambda power() {
         lambdaA = beta;
         matrixA->plusIdentityMatrix(-lambdaA);
         k = 1;
+        u = initU(1);
         beta = iter(k, matrixA, u);
         if (k < maxIterTimes) {
             lambdaB = beta + lambdaA;

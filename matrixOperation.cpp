@@ -34,6 +34,7 @@ vector<double> vectorNumberMult(vector<double> v, double times, char op) {
         default:
             break;
     }
+    return ans;
 }
 
 bool checkE(double betaK, double betaK_1) {
@@ -43,10 +44,27 @@ bool checkE(double betaK, double betaK_1) {
     return false;
 }
 
-vector<double> initU() {
+vector<double> initU(int seed) {
     vector<double> u;
-    for (int i = 0; i < maxLength; i++) {
-        u.push_back(1);
+    switch (seed) {
+        case 1:
+            for (int i = 0; i < maxLength; i++) {
+                u.push_back(i);
+            }
+            break;
+        default:
+            for (int i = 0; i < maxLength; i++) {
+                u.push_back(1);
+            }
+            break;
     }
+
     return u;
+}
+
+void printVextor(vector<double> v) {
+    for (int i = 0; i < v.size(); i++) {
+        cout << v[i] << "\t";
+    }
+    cout << endl;
 }

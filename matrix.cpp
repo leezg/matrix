@@ -2,8 +2,9 @@
 // Created by lee on 2021/10/26.
 //
 #include "matrix.h"
-#include <math.h>
-#define E exp(-12)
+#define E exp(-20)
+
+vector<double> numA;
 
 //TODO: 检查矩阵
 Matrix::Matrix() { //矩阵初始化
@@ -16,7 +17,34 @@ Matrix::Matrix() { //矩阵初始化
     }
 }
 
+Matrix::Matrix(int i) {
+    matrixA.push_back(vector<double>());
+    matrixA[0].push_back(1);
+    matrixA[0].push_back(2);
+    matrixA[0].push_back(3);
+    matrixA[0].push_back(4);
+    matrixA.push_back(vector<double>());
+    matrixA[1].push_back(1);
+    matrixA[1].push_back(4);
+    matrixA[1].push_back(2);
+    matrixA[1].push_back(-8);
+    matrixA.push_back(vector<double>());
+    matrixA[2].push_back(1);
+    matrixA[2].push_back(-1);
+    matrixA[2].push_back(4);
+    matrixA[2].push_back(1);
+    matrixA.push_back(vector<double>());
+    matrixA[3].push_back(1);
+    matrixA[3].push_back(3);
+    matrixA[3].push_back(5);
+    matrixA[3].push_back(2);
+    LU_Factorization();
+    printMatrix();
+    printMatrix();
+}
+
 double Matrix::getMatrixByCoordinate(int i_, int j_) { //根据原坐标取值
+//    return matrixA[i_][j_];
     if (i_ < 0 || j_ < 0 || i_ >= maxLength || j_ >= maxLength) {
         return 0;
     }
@@ -29,30 +57,47 @@ double Matrix::getMatrixByCoordinate(int i_, int j_) { //根据原坐标取值
 }
 
 void Matrix::LU_Factorization() {
+    matrixL = vector<vector<double>>();
+    matrixU = vector<vector<double>>();
     for (int i = 0; i < maxLength; i++) {
         matrixL.push_back(vector<double>());
         matrixU.push_back(vector<double>());
         for (int j = 0; j < maxLength; j++) {
             matrixL[i].push_back(0);
             matrixU[i].push_back(0);
-        }
-    }
-
-    for (int i = 0; i < maxLength; i++) {
-        matrixU[0][i] = getMatrixByCoordinate(0, i);
-        matrixL[i][0] = getMatrixByCoordinate(i, 0) / matrixU[0][0];
-    }
-
-    for (int r = 1; r < maxLength; r++) {
-        for (int i = r; i < maxLength; i++) {
-            matrixU[r][i] = getMatrixByCoordinate(r, i) - sumLrkUki(r, i);
-            if  (i == r) {
-                matrixL[i][r] = 1;
-            } else {
-                matrixL[i][r] = (getMatrixByCoordinate(i, r) - sumLrkUki(r, i)) / matrixU[r][r];
+            if (i == j) {
+                matrixL[i][j] = 1;
             }
         }
     }
+
+    for (int k = 0; k < maxLength; k++) {
+        for (int j = k; j < maxLength; j++) {
+            matrixU[k][j] = getMatrixByCoordinate(k, j) - sumLktUtj(k, j);
+        }
+        if (k < maxLength - 1) {
+            for (int i = k + 1; i < maxLength; i++) {
+                matrixL[i][k] = (getMatrixByCoordinate(i, k) - sumLjtUtk(k, i)) / matrixU[k][k];
+            }
+        }
+    }
+
+//    for (int i = 0; i < maxLength; i++) {
+//        matrixU[0][i] = getMatrixByCoordinate(0, i);
+//    }
+//
+//    for (int i = 1; i < maxLength; i++) {
+//        matrixL[i][0] = getMatrixByCoordinate(i, 0) / matrixU[0][0];
+//    }
+//
+//    for (int r = 1; r < maxLength; r++) {
+//        for (int i = r; i < maxLength; i++) {
+//            matrixU[r][i] = getMatrixByCoordinate(r, i) - sumLrkUki(r, i);
+//            if (i > r) {
+//                matrixL[i][r] = (getMatrixByCoordinate(i, r) - sumLrkUki(r, i)) / matrixU[r][r];
+//            }
+//        }
+//    }
 }
 
 vector<double> Matrix::LU_Solve(vector<double> b) {
@@ -87,12 +132,13 @@ vector<double> Matrix::LU_Solve(vector<double> b) {
 vector<double> Matrix::matrixMultArr(vector<double> arr) {
     vector<double> ans;
     for (int i = 0; i < maxLength; i++) {
-        ans.push_back(0);
+        double sum = 0;
         for (int j = 0; j < maxLength; j++) {
-            ans.push_back(getMatrixByCoordinate(i + 1, j + 1) * arr[j]);
+            sum += getMatrixByCoordinate(i, j) * arr[j];
         }
+        ans.push_back(sum);
     }
-    return arr;
+    return ans;
 }
 
 void Matrix::plusIdentityMatrix(double times) {
@@ -124,18 +170,28 @@ void Matrix::setMatrixByCoordinate(int i_, int j_, double value) { //根据原�
 }
 
 void Matrix::printMatrix() {
+    cout << numA[0] << endl;
     for (int i = 0; i < maxLength; i++) {
         for (int j = 0; j < 5; j++) {
             printf("%20.12lf", matrixA[i][j]);
         }
         cout << endl;
     }
+    cout << numA[maxLength - 1] << endl;
 }
 
-double Matrix::sumLrkUki(int r, int i) {
-    double re = 0;
-    for (int k = 0; k < r; k++) {
-        re += matrixL[r][k] + matrixU[k][i];
+double Matrix::sumLktUtj(int k, int j) {
+    double sum = 0;
+    for (int t = 0; t < k - 1; t++) {
+        sum += matrixL[k][t] + matrixU[t][j];
     }
-    return re;
+    return sum;
+}
+
+double Matrix::sumLjtUtk(int k, int j) {
+    double sum = 0;
+    for (int t = 0; t < k - 1; t++) {
+        sum += matrixL[j][t] + matrixU[t][k];
+    }
+    return sum;
 }

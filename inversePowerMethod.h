@@ -5,7 +5,6 @@
 #ifndef MATRIX_INVERSEPOWERMETHOD_H
 #define MATRIX_INVERSEPOWERMETHOD_H
 
-#include "usedPackage.h"
 #include "matrix.h"
 #include "matrixOperation.h"
 #define muNum 40
