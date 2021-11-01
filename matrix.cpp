@@ -6,7 +6,6 @@
 
 vector<double> numA;
 
-//TODO: 检查矩阵
 Matrix::Matrix() { //矩阵初始化
     for (int i = 0; i < maxLength; i++) {
         setMatrixByCoordinate(i, i - 2, numC);
@@ -17,49 +16,7 @@ Matrix::Matrix() { //矩阵初始化
     }
 }
 
-Matrix::Matrix(int i) {
-    matrixA.push_back(vector<double>());
-    matrixA[0].push_back(1);
-    matrixA[0].push_back(2);
-    matrixA[0].push_back(3);
-    matrixA[0].push_back(4);
-    matrixA.push_back(vector<double>());
-    matrixA[1].push_back(1);
-    matrixA[1].push_back(4);
-    matrixA[1].push_back(2);
-    matrixA[1].push_back(-8);
-    matrixA.push_back(vector<double>());
-    matrixA[2].push_back(1);
-    matrixA[2].push_back(-1);
-    matrixA[2].push_back(4);
-    matrixA[2].push_back(1);
-    matrixA.push_back(vector<double>());
-    matrixA[3].push_back(1);
-    matrixA[3].push_back(3);
-    matrixA[3].push_back(5);
-    matrixA[3].push_back(2);
-    LU_Factorization();
-    LmultU();
-    printMatrix();
-    printMatrix();
-}
-
-void Matrix::LmultU() {
-    vector<vector<double>> t;
-    for (int i = 0; i < maxLength; i++) {
-        t.push_back(vector<double>());
-        for (int j = 0; j < maxLength; j++) {
-            double sum = 0;
-            for (int k = 0; k < maxLength; k++) {
-                sum += matrixL[i][k] * matrixU[k][j];
-            }
-            t[i].push_back(sum);
-        }
-    }
-}
-
 double Matrix::getMatrixByCoordinate(int i_, int j_) { //根据原坐标取值
-//    return matrixA[i_][j_];
     if (i_ < 0 || j_ < 0 || i_ >= maxLength || j_ >= maxLength) {
         return 0;
     }
@@ -113,7 +70,6 @@ vector<double> Matrix::LU_Solve(vector<double> b) {
 
     vector<double> x;
 
-    //TODO: 可优化
     for (int i = 0; i < maxLength; i++) {
         x.push_back(0);
     }
@@ -128,7 +84,6 @@ vector<double> Matrix::LU_Solve(vector<double> b) {
     return x;
 }
 
-//TODO: 降低复杂度
 vector<double> Matrix::matrixMultArr(vector<double> arr) {
     vector<double> ans;
     for (int i = 0; i < maxLength; i++) {
@@ -169,16 +124,16 @@ void Matrix::setMatrixByCoordinate(int i_, int j_, double value) { //根据原�
     }
 }
 
-void Matrix::printMatrix() {
-    cout << numA[0] << endl;
-    for (int i = 0; i < maxLength; i++) {
-        for (int j = 0; j < 5; j++) {
-            printf("%20.12lf", matrixA[i][j]);
-        }
-        cout << endl;
-    }
-    cout << numA[maxLength - 1] << endl;
-}
+//void Matrix::printMatrix() {
+//    cout << numA[0] << endl;
+//    for (int i = 0; i < maxLength; i++) {
+//        for (int j = 0; j < 5; j++) {
+//            printf("%20.12lf", matrixA[i][j]);
+//        }
+//        cout << endl;
+//    }
+//    cout << numA[maxLength - 1] << endl;
+//}
 
 double Matrix::sumLktUtj(int k, int j) {
     double sum = 0;

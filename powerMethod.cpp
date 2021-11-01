@@ -16,7 +16,6 @@ double iter(int &k, Matrix* matrix, vector<double> u) {
         u = matrix->matrixMultArr(y);
         betaK = vectorMult(y, u);
         if (checkE(betaK, betaK_1)) {
-            double tmp = abs(betaK - betaK_1) / abs(betaK);
             return betaK;
         }
         betaK_1 = betaK;

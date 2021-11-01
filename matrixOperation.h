@@ -12,6 +12,5 @@ double getVectorNorm (vector<double>);
 vector<double> vectorNumberMult(vector<double>, double, char);
 bool checkE(double, double);
 vector<double> initU(int);
-void printVextor(vector<double>);
 
 #endif //MATRIX_MATRIXOPERATION_H
