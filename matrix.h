@@ -31,6 +31,8 @@ public:
     void LU_Factorization();
     //解方程
     vector<double> LU_Solve(vector<double>);
+    //计算detA
+    double getDetA();
     //矩阵平移
     void plusIdentityMatrix(double);
 };

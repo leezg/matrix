@@ -84,6 +84,14 @@ vector<double> Matrix::LU_Solve(vector<double> b) {
     return x;
 }
 
+double Matrix::getDetA() {
+    double detA = 1;
+    for (int i = 0; i < maxLength; i++) {
+        detA *= matrixU[i][i];
+    }
+    return detA;
+}
+
 vector<double> Matrix::matrixMultArr(vector<double> arr) {
     vector<double> ans;
     for (int i = 0; i < maxLength; i++) {

@@ -1,5 +1,7 @@
 #include "powerMethod.h"
 #include "inversePowerMethod.h"
+#include <cstdio>
+#include <cstdlib>
 #include "usedPackage.h"
 
 double condA_2;
@@ -12,30 +14,45 @@ void initNumA() {
     }
 }
 
-void printAnswer(Lambda lambda, vector<double> lambdaT) {
-    printf("lambda1:\t%20.12lf\n", lambda.lambda1);
-    printf("lambda501:\t%20.12lf\n", lambda.lambda1);
-    printf("lambdas:\t%20.12lf\n", lambdaT[0]);
-    for (int i = 1; i < lambdaT.size(); i++) {
-        printf("lambdai_%d:\t%20.12lf\n", i, lambdaT[i]);
+void fprintAnswer(Lambda lambda, vector<double> lambdaT) {
+    FILE *fp;
+    fp = fopen("./answer.csv", "w+");
+    if (fp == NULL) {
+        printf("null");
     }
-    printf("condA_2:\t%20.12lf\n", condA_2);
-    printf("detA:\t%20.12lf\n", detA);
+    fprintf(fp, "lambda1,%20.12le\n", lambda.lambda1);
+    fprintf(fp, "lambda501,%20.12le\n", lambda.lambda1);
+    fprintf(fp, "lambdas,%20.12le\n", lambdaT[0]);
+    for (int i = 1; i < lambdaT.size(); i++) {
+        fprintf(fp, "lambdai_%d,%20.12le\n", i, lambdaT[i]);
+    }
+    fprintf(fp, "condA_2,%20.12le\n", condA_2);
+    fprintf(fp, "detA,%20.12le\n", detA);
+    fclose(fp);
 }
 
-double countCandD(Lambda lambda, vector<double> lambdaT) {
+void printAnswer(Lambda lambda, vector<double> lambdaT) {
+    printf("\\lambda_1,%20.12le\n", lambda.lambda1);
+    printf("\\lambda_{501},%20.12le\n", lambda.lambda1);
+    printf("\\lambda_s,%20.12le\n", lambdaT[0]);
+    for (int i = 1; i < lambdaT.size(); i++) {
+        printf("\\lambda_i_{%d},%20.12le\n", i, lambdaT[i]);
+    }
+    printf("cond(A)_2,%20.12le\n", condA_2);
+    printf("detA,%20.12le\n", detA);
+}
+
+void countCandD(Lambda lambda, vector<double> lambdaT) {
     double absLambdaM = max(abs(lambda.lambda1), abs(lambda.lambda501));
     condA_2 = absLambdaM / abs(lambdaT[0]);
-    detA = 1;
-    for (int i = 1; i < lambdaT.size(); i++) {
-        detA *= lambdaT[i];
-    }
+    Matrix matrix = Matrix();
+    matrix.LU_Factorization();
+    detA = matrix.getDetA();
 }
 
 int main() {
     Lambda lambda;
     vector<double> lambdaT;
-
     initNumA();
     lambda = power();
     lambdaT = inversePower(lambda);
